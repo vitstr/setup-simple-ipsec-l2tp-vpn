@@ -32,7 +32,7 @@ sudo sh setup.sh
 ```
 
 > NOTE: Debian 7 (Wheezy) does not have the newer libnss3 version (>=3.15) that Libreswan requires.
-> The following workaround is required BEFORE running vpnsetup.sh.
+> The following workaround is required BEFORE running setup.sh.
 > Thanks to @hwdsl2
 > 
 > ```

@@ -104,7 +104,7 @@ echo ""
 apt-get update > /dev/null
 
 if [ `sudo dpkg-query -l | grep wget | wc -l` = 0 ] ; then
-  apt-get install wget -y  > /dev/null
+  apt-get install wget -y > /dev/null
 fi
 
 echo "What type of connection will you be using this VPN server on?"
@@ -154,7 +154,11 @@ echo ""
 
 echo "Installing necessary dependencies..."
 
-apt-get install libnss3-dev libnspr4-dev pkg-config libpam0g-dev libcap-ng-dev libcap-ng-utils libselinux1-dev libcurl4-nss-dev libgmp3-dev flex bison gcc make libunbound-dev libnss3-tools libevent-dev xmlto -y  > /dev/null
+apt-get install libnss3-dev libnspr4-dev pkg-config libpam0g-dev \
+        libcap-ng-dev libcap-ng-utils libselinux1-dev \
+        libcurl4-nss-dev libgmp3-dev flex bison gcc make \
+        libunbound-dev libnss3-tools libevent-dev -y > /dev/null
+apt-get --no-install-recommends install xmlto -y > /dev/null
 
 if [ "$?" = "1" ]
 then
@@ -226,7 +230,7 @@ echo "/etc/ipsec.secrets"
 if [ -f /etc/ipsec.secrets ];
 then
   cp -f /etc/ipsec.secrets /etc/ipsec.secrets.old
-  echo "Backup /etc/ipsec.secrets -> /etc/ipsec.secrets.old"
+  echo "Backup /etc/ipsec.secrets -> /etc/ipsec.secrets.orig"
 fi
 
 cat > /etc/ipsec.secrets <<EOF
@@ -277,8 +281,8 @@ echo "/etc/ppp/chap-secrets"
 
 if [ -f /etc/ppp/chap-secrets ];
 then
-  cp -f /etc/ppp/chap-secrets /etc/ppp/chap-secrets.old
-  echo "Backup /etc/ppp/chap-secrets -> /etc/ppp/chap-secrets.old"
+  cp -f /etc/ppp/chap-secrets /etc/ppp/chap-secrets.orig
+  echo "Backup /etc/ppp/chap-secrets -> /etc/ppp/chap-secrets.orig"
 fi
 
 cat > /etc/ppp/chap-secrets <<EOF
@@ -292,7 +296,7 @@ echo "/etc/init.d/ipsec-assist"
 cat > /etc/init.d/ipsec-assist <<'EOF'
 #!/bin/sh
 ### BEGIN INIT INFO
-# Provides:
+# Provides:          ipsec-assist
 # Required-Start:    $remote_fs $syslog
 # Required-Stop:     $remote_fs $syslog
 # Default-Start:     2 3 4 5
@@ -308,8 +312,6 @@ cat > /etc/init.d/ipsec-assist <<'EOF'
 case "$1" in
   start)
     echo "Starting up the goodness of IPSec and XL2TPD"
-    iptables --table nat --append POSTROUTING --jump MASQUERADE
-    echo 1 > /proc/sys/net/ipv4/ip_forward
     for each in /proc/sys/net/ipv4/conf/*
     do
       echo 0 > $each/accept_redirects
@@ -320,15 +322,11 @@ case "$1" in
     ;;
   stop)
     echo "Stopping IPSec and XL2TPD"
-    iptables --table nat --flush
-    echo 0 > /proc/sys/net/ipv4/ip_forward
     /usr/sbin/service ipsec stop
     /usr/sbin/service xl2tpd stop
     ;;
   restart)
     echo "Restarting IPSec and XL2TPD"
-    iptables --table nat --append POSTROUTING --jump MASQUERADE
-    echo 1 > /proc/sys/net/ipv4/ip_forward
     for each in /proc/sys/net/ipv4/conf/*
     do
       echo 0 > $each/accept_redirects
