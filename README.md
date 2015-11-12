@@ -23,7 +23,7 @@ Based on the work of Thomas Sarlandie (Copyright 2012)
 ## For Ubuntu and Debian
 
 ```
-wget https://raw.github.com/philplckthun/setup-simple-ipsec-l2tp-vpn/master/setup.sh
+wget https://raw.githubusercontent.com/vitstr/setup-simple-ipsec-l2tp-vpn/debian-wheezy/setup.sh
 sudo sh setup.sh
 ```
 
