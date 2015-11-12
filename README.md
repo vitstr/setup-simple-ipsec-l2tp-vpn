@@ -7,16 +7,12 @@
 
 Script has been tested on:
 
-- Digital Ocean: Ubuntu 14.04 x64 (Trusty)
-- Online.net: Arch Linux
-- Amazon Web Services EC2: Arch Linux
-- Amazon Web Services EC2: Ubuntu 14.04 x64 HVM (Trusty)
+- Private Server: Debian 7 x86 (Wheezy)
 
 **Feel free to test it on more distributions and please report back to me!**
 
 Copyright (C) 2014-2015 Phil Plückthun <phil@plckthn.me><br>
 Hotfixes - Edwin Ang <edwin@theroyalstudent.com><br>
-Adapting script for Arch Linux - Dennis Anfossi <danfossi@itfor.it>
 
 [Based on the work of Lin Song](https://gist.github.com/hwdsl2/9030462) (Copyright 2014)<br>
 [Based on the work of Viljo Viitanen](https://github.com/viljoviitanen/setup-simple-pptp-vpn) (Setup Simple PPTP VPN server for Ubuntu and Debian)
@@ -46,20 +42,6 @@ This will install a new service called `ipsec-assist`. With it you can safely st
 sudo service ipsec-assist stop
 sudo service ipsec-assist start
 sudo service ipsec-assist restart
-```
-
-## For Arch Linux
-
-```
-wget https://raw.github.com/philplckthun/setup-simple-ipsec-l2tp-vpn/master/setup_archlinux.sh
-sudo sh setup_archlinux.sh
-```
-
-## For Fedora
-
-```
-wget https://raw.github.com/philplckthun/setup-simple-ipsec-l2tp-vpn/master/setup_fedora.sh
-sudo sh setup_fedora.sh
 ```
 
 The script will lead you through the installation process.

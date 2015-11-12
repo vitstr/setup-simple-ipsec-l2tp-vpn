@@ -190,6 +190,12 @@ echo "Preparing various configuration files..."
 
 echo "/etc/ipsec.conf"
 
+if [ -f /etc/ipsec.conf ];
+then
+  cp -f /etc/ipsec.conf /etc/ipsec.conf.orig
+  echo "Backup /etc/ipsec.conf -> /etc/ipsec.conf.orig"
+fi
+
 cat > /etc/ipsec.conf <<EOF
 version 2.0
 config setup
@@ -229,7 +235,7 @@ echo "/etc/ipsec.secrets"
 
 if [ -f /etc/ipsec.secrets ];
 then
-  cp -f /etc/ipsec.secrets /etc/ipsec.secrets.old
+  cp -f /etc/ipsec.secrets /etc/ipsec.secrets.orig
   echo "Backup /etc/ipsec.secrets -> /etc/ipsec.secrets.orig"
 fi
 
@@ -238,6 +244,12 @@ $IPADDRESS  %any  : PSK "$IPSEC_PSK"
 EOF
 
 echo "/etc/xl2tpd/xl2tpd.conf"
+
+if [ -f /etc/xl2tpd/xl2tpd.conf ];
+then
+  cp -f /etc/xl2tpd/xl2tpd.conf /etc/xl2tpd/xl2tpd.conf.orig
+  echo "Backup /etc/xl2tpd/xl2tpd.conf -> /etc/xl2tpd/xl2tpd.conf.orig"
+fi
 
 cat > /etc/xl2tpd/xl2tpd.conf <<EOF
 [global]
@@ -259,6 +271,12 @@ length bit = yes
 EOF
 
 echo "/etc/ppp/options.xl2tpd"
+
+if [ -f /etc/ppp/options.xl2tpd ];
+then
+  cp -f /etc/ppp/options.xl2tpd /etc/ppp/options.xl2tpd.orig
+  echo "Backup /etc/ppp/options.xl2tpd -> /etc/ppp/options.xl2tpd.orig"
+fi
 
 cat > /etc/ppp/options.xl2tpd <<EOF
 ipcp-accept-local
