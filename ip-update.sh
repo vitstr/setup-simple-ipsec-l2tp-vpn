@@ -34,9 +34,7 @@ if [ "$OLD_PUBLIC_IP" != "$PUBLIC_IP" ]; then
   # FOR OPENSWAN/STRONGSWAN/LIBRESWAN VPN USERS:
   sed -i "s/${OLD_PUBLIC_IP}/${PUBLIC_IP}/" $FL1
   sed -i "s/${OLD_PUBLIC_IP}/${PUBLIC_IP}/" $FL2
+  /usr/sbin/service ipsec-assist restart
 fi
 
 echo "OLD_PUBLIC_IP=${PUBLIC_IP}" > /root/IPADDR
-
-# FOR OPENSWAN/STRONGSWAN/LIBRESWAN VPN USERS:
-/sbin/service ipsec-assist restart
