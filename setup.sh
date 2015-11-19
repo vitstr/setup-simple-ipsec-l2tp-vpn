@@ -201,7 +201,7 @@ version 2.0
 config setup
   dumpdir=/var/run/pluto/
   nat_traversal=yes
-  virtual_private=%v4:10.0.0.0/8,%v4:192.168.0.0/16,%v4:172.16.0.0/12,%v4:!192.168.8.0/24
+  virtual_private=%v4:10.0.0.0/8,%v4:192.168.0.0/16,%v4:172.16.0.0/12,%v4:!10.10.10.0/24
   oe=off
   protostack=netkey
   nhelpers=0
